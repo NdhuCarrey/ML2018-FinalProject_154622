@@ -18,10 +18,13 @@
 圖片中實驗結果為利用20%測試資料進行測試結果：  
 ![Alt text](https://github.com/NdhuCarrey/ML2018-FinalProject_154622/blob/master/02.JPG)  
 
-我們選擇的測試資料：  
+實驗結果為我們輸入一張圖去辨識輸入的影像是哪個人的，並顯示辨識結果的數據。  
+
+我們選擇的圖片：  
+
 ![Alt text](https://github.com/NdhuCarrey/ML2018-FinalProject_154622/blob/master/Face%20Database/s30_04.jpg) 
 
-圖片中實驗結果為輸入一張圖去辨識輸入的影像是哪個人的，並顯示辨識結果的數據。  
+辨識結果：  
 
 ![Alt text](https://github.com/NdhuCarrey/ML2018-FinalProject_154622/blob/master/03.JPG)  
 
