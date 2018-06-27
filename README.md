@@ -1,6 +1,6 @@
-  # Face Recognizer System for ML Term Project
+## Face Recognizer System for ML Term Project
 
-    Team members: 410323022 賴威廷 41032115 鄭詠儒 410321146 黃健銘
+   Team members: 410323022 賴威廷 41032115 鄭詠儒 410321146 黃健銘
 
 ## The ML technology you used in the recognizer:  
 我們使用Convolution nerual network的方式進行訓練。  
