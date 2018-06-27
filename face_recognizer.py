@@ -3,8 +3,6 @@ from keras.models import Sequential, load_model
 from keras.layers import Dense, Activation, Conv2D, MaxPooling2D, Flatten, Dropout
 from keras.utils import to_categorical
 from PIL import Image, ImageTk
-from matplotlib.pyplot import imshow
-import matplotlib.pyplot as plt
 import tkinter as Tk
 from tkinter import filedialog
 
@@ -64,14 +62,10 @@ def testingload():
     global model
     filesname = filedialog.askopenfilenames(initialdir="/", title="Select file",
                                           filetypes=(("jpeg files", "*.jpg"), ("all files", "*.*")))
-    # label.configure(text = win.filename)
     fileslist = list(filesname)
     k ,test_x, test_y = Load(fileslist)
     evaluate(test_x, test_y)
-   # zbutton.pack(side=Tk.BOTTOM)
-   # label.config(text="Choose a testing picture from your computer!")
-   # label.destroy()
-    #ybutton.forget()
+
 def trainingload():
     global tx,x, y
     global model
@@ -89,9 +83,7 @@ def trainingload():
         
     Model(x)
     train(x, y)
-   # ybutton.pack(side=Tk.BOTTOM)
     label.config(bg='gray80', text= "Load test images / image")
-    #xbutton.forget()
     
 def predict():
     global model
@@ -152,7 +144,6 @@ label4.pack()
 xbutton = Tk.Button(win, text="Load Images & Training", width = 20, bg = 'pink', command=trainingload)
 ybutton = Tk.Button(win, text="Load Images & Testing", width = 20, bg = 'moccasin', command=testingload)
 zbutton = Tk.Button(win, text="Load a Testing Image!", width = 20, bg = 'skyblue',  command=predict)
-#label.pack()
 zbutton.pack(side=Tk.BOTTOM)
 ybutton.pack(side=Tk.BOTTOM)
 xbutton.pack(side=Tk.BOTTOM)
