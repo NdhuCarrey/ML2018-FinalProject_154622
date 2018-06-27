@@ -18,7 +18,7 @@
 
 
 ## How we test our recognizer to evaluate its recognition rate:  
-我們將training data 切割出20%當作 Validation Set，用來測試神經網路的正確率。  
+我們將training data 切割出20%當作 Validation Set，用來評估神經網路的正確率，在選擇完最佳的model後，將 Validation set 加回訓練裡面，增加資料量以提高正確率。
 
 ![Alt text](https://github.com/NdhuCarrey/ML2018-FinalProject_154622/blob/master/1.png)  
 
