@@ -10,8 +10,11 @@
 
 ## The modules enclosed in our recognizer and their functions:  
 我們使用keras套件來實作。GUI的部分使用Python中的tkinter來實作，利用GUI的方式讀取檔案，顯示程式結果。   
-
+圖片中實驗結果為利用20%測試資料進行測試結果。  
 ![Alt text](https://github.com/NdhuCarrey/ML2018-FinalProject_154622/blob/master/3.png)  
+
+圖片中實驗結果為輸入一張圖去辨識輸入的影像是哪個人的，並顯示辨識結果的數據。  
+![Alt text](https://github.com/NdhuCarrey/ML2018-FinalProject_154622/blob/master/4.PNG)  
 
 
 ## How we test our recognizer to evaluate its recognition rate:  
