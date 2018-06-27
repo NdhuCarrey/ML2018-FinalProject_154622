@@ -1,10 +1,3 @@
-
-# coding: utf-8
-
-# In[2]:
-
-
-get_ipython().run_line_magic('matplotlib', 'inline')
 import numpy as np
 from keras.models import Sequential, load_model
 from keras.layers import Dense, Activation, Conv2D, MaxPooling2D, Flatten, Dropout
@@ -52,7 +45,7 @@ def Model(x):
 
 def train(x, y):
     global model
-    model.fit(x, y, epochs=1, batch_size=50)
+    model.fit(x, y, epochs=15, batch_size=50)
     model.save('my_model.h5')
 
 
@@ -61,55 +54,9 @@ def evaluate(x, y):
     score = model.evaluate(x, y)
     var1 = score[0]
     var2 = score[1]
-    Tk.Label(win, text ="Test data Evaluate").pack()
-    Tk.Label(win, text="Total loss: " + str(var1)).pack()
-    Tk.Label(win, text="Accuracy: {0}".format(str(var2))).pack()
-
-def predict():
-    global model
-    global x,tx
-    global panel
-
-    im = Image.fromarray(tx[0])
-    img = ImageTk.PhotoImage(im)
-    canvas.itemconfig(face[0],image=img)
-#     test = []
-#     filesname = filedialog.askopenfilename(initialdir = "/", title = "Select file", filetypes = (("jpeg files", "*.jpg"),("all files", "*.*")))
-#     test.append(np.array(Image.open(filesname).resize((100, 150))))
-#     test = np.array(test)
-#     test = test/255.0
-#     ac = model.predict(test)
-#     a = np.argsort(ac[0])[-1:-6:-1]
-#     temp = 1
-#     Tk.Label(win, text = str(ac[0][a] * 100)).pack()
-    
-#     temp = 0
-#     for i in a:
-#         print(i)
-#         im = Image.fromarray(tx[i*13])
-#         img = ImageTk.PhotoImage(im)
-#         canvas.itemconfig(face[temp],image=img)
-#         temp = temp+1
-
-    
-def trainingload():
-    global tx,x, y
-    global model
-    global filesname
-    
-  
-   
-    
-    filesname = filedialog.askopenfilenames(initialdir="/", title="Select file",
-                                            filetypes=(("jpeg files", "*.jpg"), ("all files", "*.*")))
-    # label.configure(text = win.filename)
-    fileslist = list(filesname)
-    tx,x, y = Load(fileslist)
-    Model(x)
-    train(x, y)
-   # ybutton.pack(side=Tk.BOTTOM)
-    label.config(bg='gray80', text= " ")
-    #xbutton.forget()
+    label1.config(bg='white',text= "Test data Evaluate")
+    label2.config(bg='white',text= "Total loss: " + str(var1))
+    label3.config(bg='white',text= "Accuracy: {0}".format(str(var2)))
 
 
 def testingload():
@@ -119,13 +66,59 @@ def testingload():
                                           filetypes=(("jpeg files", "*.jpg"), ("all files", "*.*")))
     # label.configure(text = win.filename)
     fileslist = list(filesname)
-    test_x, test_y = Load(fileslist)
+    k ,test_x, test_y = Load(fileslist)
     evaluate(test_x, test_y)
    # zbutton.pack(side=Tk.BOTTOM)
    # label.config(text="Choose a testing picture from your computer!")
    # label.destroy()
     #ybutton.forget()
+def trainingload():
+    global tx,x, y
+    global model
+    global filesname
+    global face
+    
+    filesname = filedialog.askopenfilenames(initialdir="/", title="Select file",
+                                            filetypes=(("jpeg files", "*.jpg"), ("all files", "*.*")))
+    label.config(bg='gray80', text= "Loading...")
+    fileslist = list(filesname)
+    tx,x, y = Load(fileslist)
+    
+    for i in tx:
+        face.append(ImageTk.PhotoImage(Image.fromarray(i)))
+        
+    Model(x)
+    train(x, y)
+   # ybutton.pack(side=Tk.BOTTOM)
+    label.config(bg='gray80', text= "Load test images / image")
+    #xbutton.forget()
+    
+def predict():
+    global model
+    global x
+    global tx
+    global panel
+    global face
+    global canvas
+    label.config(bg='gray80', text= "Loading...")
+    label1.config(bg='gray80',text= "")
+    label2.config(bg='gray80',text= "")
+    label3.config(bg='gray80',text= "")
+    test = []
+    filesname = filedialog.askopenfilename(initialdir = "/", title = "Select file", filetypes = (("jpeg files", "*.jpg"),("all files", "*.*")))
+    test.append(np.array(Image.open(filesname).resize((100, 150))))
+    test = np.array(test)
+    test = test/255.0
+    ac = model.predict(test)
+    a = np.argsort(ac[0])[-1:-6:-1]
+    temp = 1
+    label4.config(bg='white', text= str(ac[0][a] * 100))
 
+    temp = 1
+    for i in a:
+        canvas.itemconfig(temp,image=face[i*13])
+        temp = temp+1 
+    label.config(bg='gray80', text= "Load test images / image")
 
 model = Sequential()
 x = []
@@ -133,36 +126,45 @@ y = []
 tx =[]
 test_x = []
 test_y = []
+face = []
 win = Tk.Tk()
 win.title("Final Project")
-win.geometry("500x300")
+win.geometry("500x350")
 win.configure(background="gray80")
  
 
-
-
 label = Tk.Label(win, text="Choose training pictures from your computer!")
+label.config(bg='gray80', text= "Choose training pictures from your computer!")
+label.pack()
+label1 = Tk.Label(win, text ="")
+label2 = Tk.Label(win, text ="")
+label3 = Tk.Label(win, text ="")
+label4 = Tk.Label(win, text ="")
+label1.config(bg='gray80',text= " ")
+label2.config(bg='gray80',text= " ")
+label3.config(bg='gray80',text= " ")
+label4.config(bg='gray80',text= " ")
+label1.pack()
+label2.pack()
+label3.pack()
+label4.pack()
+
 xbutton = Tk.Button(win, text="Load Images & Training", width = 20, bg = 'pink', command=trainingload)
 ybutton = Tk.Button(win, text="Load Images & Testing", width = 20, bg = 'moccasin', command=testingload)
 zbutton = Tk.Button(win, text="Load a Testing Image!", width = 20, bg = 'skyblue',  command=predict)
-label.pack()
+#label.pack()
 zbutton.pack(side=Tk.BOTTOM)
 ybutton.pack(side=Tk.BOTTOM)
 xbutton.pack(side=Tk.BOTTOM)
+    
 
-
-
-face = []
-pos =0
 canvas=Tk.Canvas(win,bg='blue',height=150,width=520)
 im = Image.new('RGB',(100, 150))
 img = ImageTk.PhotoImage(im)
+pos =0
 for i in range(5):
-   
-    g = canvas.create_image(pos,0,anchor='nw',image=img)
-    face.append(g)
+    canvas.create_image(pos,0,image=img, anchor='nw')
     pos += 100
-
 canvas.pack(side=Tk.BOTTOM)
 
 win.mainloop()
